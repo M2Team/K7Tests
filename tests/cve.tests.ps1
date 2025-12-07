@@ -21,11 +21,12 @@ Describe "CVE tests" {
 
     Context "CVE-2025-11011" {
         BeforeEach {
+            # This value is baked into the test data and cannot be changed.
+            $DroppedFile = "C:\Users\Public\Documents\CVE-2025-11001.txt"
             # The prepared CVE-2025-11011 payload creates a file at $DroppedFile.
             # Since this test involves a path outside of TestDrive, it requires
             # some extra scrutiny when it comes to the test environment prep, to
             # avoid false negatives if the destination path is not writable.
-            $DroppedFile = "C:\Users\Public\Documents\CVE-2025-11001.txt"
             Remove-Item $DroppedFile -Force -ErrorAction SilentlyContinue
             $DroppedFile | Should -Not -Exist -Because "test path should be clean"
             New-Item -ItemType File -Path $DroppedFile
