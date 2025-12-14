@@ -19,11 +19,11 @@ Describe "CVE tests" {
         $ExitCode | Should -Be 2 -Because "2 means extraction error is handled"
     }
 
-    Context "CVE-2025-11011" {
+    Context "CVE-2025-11001" {
         BeforeEach {
             # This value is baked into the test data and cannot be changed.
             $DroppedFile = "C:\Users\Public\Documents\CVE-2025-11001.txt"
-            # The prepared CVE-2025-11011 payload creates a file at $DroppedFile.
+            # The prepared CVE-2025-11001 payload creates a file at $DroppedFile.
             # Since this test involves a path outside of TestDrive, it requires
             # some extra scrutiny when it comes to the test environment prep, to
             # avoid false negatives if the destination path is not writable.
@@ -39,7 +39,7 @@ Describe "CVE tests" {
             Remove-Item $DroppedFile -Force -ErrorAction SilentlyContinue
         }
 
-        It "is immune to CVE-2025-11011" {
+        It "is immune to CVE-2025-11001" {
             $Output = & $NanaZip x "$InputDir/CVE-2025-11001.zip" "-o$TestDrive/extracted" 2>&1
             $Output | Write-Verbose -Verbose:$VerbosePreference
 
