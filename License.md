@@ -4,7 +4,7 @@ For giving the maximum respect for the upstream projects and following the
 philosophy about open-source software from Kenji Mouri (MouriNaruto), the one
 of the M2-Team founders.
 
-The source code of NanaZip.Tests is distributed under the MIT License.
+The source code of K7Tests is distributed under the MIT License.
 
 The Canterbury Corpus (`inputs/cantrbry`) and Artificial Corpus
 (`inputs/artificl`) are compiled by the University of Canterbury:
