@@ -23,11 +23,58 @@ function Invoke-ShouldEqualFile {
 
 Add-ShouldOperator EqualFile -InternalName "Invoke-ShouldEqualFile" -Test ${Function:Invoke-ShouldEqualFile}
 
+function Compress-7zArchive {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string]$Program,
+        [Parameter(Mandatory)]
+        [string]$InputFile,
+        [Parameter(Mandatory)]
+        [string]$CompressedFile,
+        [Parameter(Mandatory)]
+        $CompressOptions,
+        [Parameter()]
+        [int]$ExpectedExitCode = 0
+    )
+
+    $CompressArgs = @("a") + $CompressOptions + @(
+        $CompressedFile
+        $InputFile
+    )
+
+    Write-Verbose ((@($Program) + $CompressArgs) -join " ") -Verbose:$VerbosePreference
+
+    $Output = & $Program @CompressArgs 2>&1
+    $ExitCode = $LASTEXITCODE
+    $Output | Write-Verbose -Verbose:$VerbosePreference
+    $ExitCode | Should -Be $ExpectedExitCode
+}
+
+function Expand-7zArchive {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string]$Program,
+        [Parameter(Mandatory)]
+        [string]$CompressedFile,
+        [Parameter(Mandatory)]
+        [string]$ExtractedDir,
+        [Parameter()]
+        [int]$ExpectedExitCode = 0
+    )
+
+    $Output = & $Program e $CompressedFile "-o$ExtractedDir" 2>&1
+    $ExitCode = $LASTEXITCODE
+    $Output | Write-Verbose -Verbose:$VerbosePreference
+    $ExitCode | Should -Be $ExpectedExitCode
+}
+
 function Invoke-Roundtrip {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
-        [string]$NanaZip,
+        [string]$Program,
         [Parameter(Mandatory)]
         [string]$InputFile,
         [Parameter(Mandatory)]
@@ -38,22 +85,18 @@ function Invoke-Roundtrip {
         $CompressOptions
     )
 
-    $CompressArgs = @("a") + $CompressOptions + @(
-        $CompressedFile
-        $InputFile
-    )
+    Compress-7zArchive `
+        -Program $Program `
+        -InputFile $InputFile `
+        -CompressedFile $CompressedFile `
+        -CompressOptions $CompressOptions `
+        -Verbose:$VerbosePreference
 
-    Write-Verbose ((@($NanaZip) + $CompressArgs) -join " ") -Verbose:$VerbosePreference
-
-    $Output = & $NanaZip @CompressArgs 2>&1
-    $ExitCode = $LASTEXITCODE
-    $Output | Write-Verbose -Verbose:$VerbosePreference
-    $ExitCode | Should -Be 0
-
-    $Output = & $NanaZip e $CompressedFile "-o$ExtractedDir" 2>&1
-    $ExitCode = $LASTEXITCODE
-    $Output | Write-Verbose -Verbose:$VerbosePreference
-    $ExitCode | Should -Be 0
+    Expand-7zArchive `
+        -Program $Program `
+        -CompressedFile $CompressedFile `
+        -ExtractedDir $ExtractedDir `
+        -Verbose:$VerbosePreference
 }
 
 function Compare-TestDirFile {
