@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory)]
-    [string]$NanaZip,
+    [string]$Program,
     [Parameter(Mandatory)]
     [string]$InputDir
 )
@@ -15,7 +15,7 @@ Describe "Fast-LZMA2 codec tests" -Tag "7-Zip-zstd" {
     It "compresses and decompresses the deadly sample" {
         # https://github.com/conor42/fast-lzma2/issues/9
         Invoke-Roundtrip `
-            -Program $NanaZip `
+            -Program $Program `
             -InputFile "$InputDir/hg19.fa.dk.bin" `
             -CompressedFile "$TestDrive/compressed/test.7z" `
             -ExtractedDir "$TestDrive/extracted" `

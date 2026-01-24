@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory)]
-    [string]$NanaZip,
+    [string]$Program,
     [Parameter(Mandatory)]
     [string]$InputDir
 )
@@ -18,7 +18,7 @@ Describe "NanaZip-specific container tests" -Tag "NanaZip" {
         @{ InputFile = "$InputDir/NanaZip.Tests.Samples/WebAssembly.Sample.wasm" }
         @{ InputFile = "$InputDir/NanaZip.Tests.Samples/ZealFS.V1.Sample.img" }
     ) {
-        $Output = & $NanaZip t $InputFile 2>&1
+        $Output = & $Program t $InputFile 2>&1
         $ExitCode = $LASTEXITCODE
         $Output | Write-Verbose -Verbose:$VerbosePreference
         $ExitCode | Should -Be 0

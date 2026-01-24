@@ -6,7 +6,7 @@ param(
     [ValidateSet("", "None", "Normal", "Detailed", "Diagnostic")]
     [string]$Verbosity,
     [Parameter()]
-    [string]$NanaZip = "NanaZipC",
+    [string]$Program = "NanaZipC",
     [Parameter()]
     [string[]]$Path = @("$PSScriptRoot/tests"),
     [Parameter()]
@@ -31,7 +31,7 @@ if ($ExcludeTag.Length) {
 }
 
 $Container = New-PesterContainer -Path $Path -Data @{
-    NanaZip  = $NanaZip
+    Program  = $Program
     InputDir = "$PSScriptRoot/inputs"
 }
 $Config.Run.Container = $Container

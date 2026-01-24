@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory)]
-    [string]$NanaZip,
+    [string]$Program,
     [Parameter(Mandatory)]
     [string]$InputDir
 )
@@ -37,7 +37,7 @@ Describe "roundtrip container tests" -ForEach @(
         @{ Extension = ".tar"; CompressOptions = @("-mm=posix") }
     ) {
         Invoke-Roundtrip `
-            -Program $NanaZip `
+            -Program $Program `
             -InputFile "$InputFile/*" `
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -ExtractedDir "$TestDrive/extracted" `
@@ -61,7 +61,7 @@ Describe "roundtrip container tests" -ForEach @(
         @{ Extension = ".7z"; CompressOptions = @("-m0=Lizard") }
     ) {
         Invoke-Roundtrip `
-            -Program $NanaZip `
+            -Program $Program `
             -InputFile "$InputFile/*" `
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -ExtractedDir "$TestDrive/extracted" `
