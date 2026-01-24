@@ -68,11 +68,6 @@ function Compare-TestDirFile {
         $Expected = Get-Item $_
         $Actual = Get-Item "$ActualDir/$($_.Name)"
         $Actual | Should -EqualFile $Expected
-
-        # mtime is stored by default
-        $MtimeDiff = $Actual.LastWriteTime - $Expected.LastWriteTime
-        $MtimeDiff | Should -BeLessThan ([timespan]::FromSeconds(1))
-        $MtimeDiff | Should -BeGreaterThan ([timespan]::FromSeconds(-1))
     }
 }
 
@@ -87,9 +82,7 @@ function Compare-TestDirMtime {
     Get-ChildItem $ExpectedDir | ForEach-Object {
         $Expected = Get-Item $_
         $Actual = Get-Item "$ActualDir/$($_.Name)"
-        $Actual | Should -EqualFile $Expected
 
-        # mtime is stored by default
         $MtimeDiff = $Actual.LastWriteTime - $Expected.LastWriteTime
         $MtimeDiff | Should -BeLessThan ([timespan]::FromSeconds(1))
         $MtimeDiff | Should -BeGreaterThan ([timespan]::FromSeconds(-1))
