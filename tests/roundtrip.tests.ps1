@@ -37,6 +37,10 @@ Describe "roundtrip container tests" -ForEach @(
         @{ Extension = ".tar"; CompressOptions = @("-mm=gnu") }
         @{ Extension = ".tar"; CompressOptions = @("-mm=pax") }
         @{ Extension = ".tar"; CompressOptions = @("-mm=posix") }
+        @{ Extension = ".zip"; CompressOptions = @("-psecret"); ExpandOptions = @("-psecret") }
+        @{ Extension = ".7z"; CompressOptions = @("-psecret"); ExpandOptions = @("-psecret") }
+        @{ Extension = ".cbz"; CompressOptions = @("-tzip", "-psecret"); ExpandOptions = @("-psecret") }
+        @{ Extension = ".cb7"; CompressOptions = @("-t7z", "-psecret"); ExpandOptions = @("-psecret") }
     ) {
         Invoke-Roundtrip `
             -Program $Program `
