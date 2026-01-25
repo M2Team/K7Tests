@@ -56,6 +56,8 @@ function Expand-7zArchive {
     param(
         [Parameter(Mandatory)]
         [string]$Program,
+        [Parameter()]
+        [switch]$WithFullPath,
         [Parameter(Mandatory)]
         [string]$CompressedFile,
         [Parameter(Mandatory)]
@@ -64,7 +66,8 @@ function Expand-7zArchive {
         [int]$ExpectedExitCode = 0
     )
 
-    $Output = & $Program e $CompressedFile "-o$ExtractedDir" 2>&1
+    $Operation = if ($WithFullPath) { "x" } else { "e" }
+    $Output = & $Program $Operation $CompressedFile "-o$ExtractedDir" 2>&1
     $ExitCode = $LASTEXITCODE
     $Output | Write-Verbose -Verbose:$VerbosePreference
     $ExitCode | Should -Be $ExpectedExitCode
