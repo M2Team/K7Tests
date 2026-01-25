@@ -19,6 +19,8 @@ Describe "operation tests" {
         @{ Extension = ".7z"; CompressOptions = @() }
         @{ Extension = ".wim"; CompressOptions = @() }
         @{ Extension = ".tar"; CompressOptions = @() }
+        @{ Extension = ".cbz"; CompressOptions = @("-tzip") }
+        @{ Extension = ".cb7"; CompressOptions = @("-t7z") }
     ) {
         Compress-7zArchive `
             -Program $Program `
@@ -51,6 +53,8 @@ Describe "operation tests" {
         @{ Extension = ".7z"; CompressOptions = @() }
         @{ Extension = ".wim"; CompressOptions = @() }
         @{ Extension = ".tar"; CompressOptions = @() }
+        @{ Extension = ".cbz"; CompressOptions = @("-tzip") }
+        @{ Extension = ".cb7"; CompressOptions = @("-t7z") }
     ) {
         Compress-7zArchive `
             -Program $Program `
@@ -74,6 +78,8 @@ Describe "operation tests" {
         @{ Extension = ".7z"; CompressOptions = @() }
         @{ Extension = ".wim"; CompressOptions = @() }
         @{ Extension = ".tar"; CompressOptions = @() }
+        @{ Extension = ".cbz"; CompressOptions = @("-tzip") }
+        @{ Extension = ".cb7"; CompressOptions = @("-t7z") }
     ) {
         Compress-7zArchive `
             -Program $Program `
