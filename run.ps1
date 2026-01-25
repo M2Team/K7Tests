@@ -17,6 +17,14 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+$Policies = Get-ItemProperty HKLM:\SOFTWARE\Policies\M2Team\NanaZip
+if ($null -ne $Policies.AllowedHandlers ||
+    $null -ne $Policies.BlockedHandlers ||
+    $null -ne $Policies.AllowedCodecs ||
+    $null -ne $Policies.BlockedCodecs) {
+    throw "Detected handler/codec policies, aborting"
+}
+
 Import-Module Pester -MinimumVersion 5.0.0 -Verbose:$false
 
 $Config = New-PesterConfiguration
