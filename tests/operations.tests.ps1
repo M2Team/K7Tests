@@ -11,17 +11,17 @@ BeforeDiscovery {
     Import-Module -Force "$PSScriptRoot/../helpers.psm1" -Verbose:$false
 }
 
-Describe "operation tests" {
+Describe "operation tests" @(
+    @{ Extension = ".zip" }
+    @{ Extension = ".7z" }
+    @{ Extension = ".wim" }
+    @{ Extension = ".tar" }
+    @{ Extension = ".cbz"; CompressOptions = @("-tzip") }
+    @{ Extension = ".cb7"; CompressOptions = @("-t7z") }
+) {
     . $PSScriptRoot/../fixtures/testdir.ps1
 
-    It "adds to archive" -ForEach @(
-        @{ Extension = ".zip" }
-        @{ Extension = ".7z" }
-        @{ Extension = ".wim" }
-        @{ Extension = ".tar" }
-        @{ Extension = ".cbz"; CompressOptions = @("-tzip") }
-        @{ Extension = ".cb7"; CompressOptions = @("-t7z") }
-    ) {
+    It "adds to archive" -ForEach {
         Compress-7zArchive `
             -Program $Program `
             -InputFile "$InputDir/cantrbry/" `
@@ -49,14 +49,7 @@ Describe "operation tests" {
             -ActualDir "$TestDrive/extracted/artificl"
     }
 
-    It "deletes from archive" -ForEach @(
-        @{ Extension = ".zip" }
-        @{ Extension = ".7z" }
-        @{ Extension = ".wim" }
-        @{ Extension = ".tar" }
-        @{ Extension = ".cbz"; CompressOptions = @("-tzip") }
-        @{ Extension = ".cb7"; CompressOptions = @("-t7z") }
-    ) {
+    It "deletes from archive" {
         Compress-7zArchive `
             -Program $Program `
             -InputFile "$InputDir/cantrbry/" `
@@ -75,14 +68,7 @@ Describe "operation tests" {
         "$TestDrive/extracted/cantrbry/kennedy.xls" | Should -Not -Exist
     }
 
-    It "renames archive member" -ForEach @(
-        @{ Extension = ".zip" }
-        @{ Extension = ".7z" }
-        @{ Extension = ".wim" }
-        @{ Extension = ".tar" }
-        @{ Extension = ".cbz"; CompressOptions = @("-tzip") }
-        @{ Extension = ".cb7"; CompressOptions = @("-t7z") }
-    ) {
+    It "renames archive member" {
         Compress-7zArchive `
             -Program $Program `
             -InputFile "$InputDir/cantrbry/" `
@@ -104,14 +90,7 @@ Describe "operation tests" {
         "$TestDrive/extracted/folder/kennedy.zip" | Should -Exist
     }
 
-    It "updates archive" -ForEach @(
-        @{ Extension = ".zip" }
-        @{ Extension = ".7z" }
-        @{ Extension = ".wim" }
-        @{ Extension = ".tar" }
-        @{ Extension = ".cbz"; CompressOptions = @("-tzip") }
-        @{ Extension = ".cb7"; CompressOptions = @("-t7z") }
-    ) {
+    It "updates archive" -ForEach {
         Compress-7zArchive `
             -Program $Program `
             -InputFile "$InputDir/artificl/*" `
