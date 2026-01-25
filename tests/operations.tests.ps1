@@ -64,7 +64,7 @@ Describe "operation tests" {
             -CompressOptions $CompressOptions `
             -Verbose:$VerbosePreference
         & $Program d "$TestDrive/compressed/test$Extension" "cantrbry/*.html"
-        & $Program d "$TestDrive/compressed/test$Extension" "cantrbry/*.xls" -r
+        & $Program d "$TestDrive/compressed/test$Extension" "*.xls" -r
         Expand-7zArchive `
             -Program $Program `
             -CompressedFile "$TestDrive/compressed/test$Extension" `
