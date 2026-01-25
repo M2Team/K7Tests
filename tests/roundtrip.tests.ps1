@@ -18,22 +18,22 @@ Describe "roundtrip container tests" -ForEach @(
     . $PSScriptRoot/../fixtures/testdir.ps1
 
     It "compresses and decompresses" -ForEach @(
-        @{ Extension = ".zip"; CompressOptions = @() }
+        @{ Extension = ".zip" }
         @{ Extension = ".zip"; CompressOptions = @("-mm=Copy") }
         @{ Extension = ".zip"; CompressOptions = @("-mm=Deflate") }
         @{ Extension = ".zip"; CompressOptions = @("-mm=Deflate64") }
         @{ Extension = ".zip"; CompressOptions = @("-mm=BZip2") }
         @{ Extension = ".zip"; CompressOptions = @("-mm=LZMA") }
         @{ Extension = ".zip"; CompressOptions = @("-mm=PPMd") }
-        @{ Extension = ".7z"; CompressOptions = @() }
+        @{ Extension = ".7z" }
         @{ Extension = ".7z"; CompressOptions = @("-m0=LZMA") }
         @{ Extension = ".7z"; CompressOptions = @("-m0=LZMA2") }
         @{ Extension = ".7z"; CompressOptions = @("-m0=PPMd") }
         @{ Extension = ".7z"; CompressOptions = @("-m0=BZip2") }
         @{ Extension = ".7z"; CompressOptions = @("-m0=Deflate") }
         @{ Extension = ".7z"; CompressOptions = @("-m0=Copy") }
-        @{ Extension = ".wim"; CompressOptions = @() }
-        @{ Extension = ".tar"; CompressOptions = @() }
+        @{ Extension = ".wim" }
+        @{ Extension = ".tar" }
         @{ Extension = ".tar"; CompressOptions = @("-mm=gnu") }
         @{ Extension = ".tar"; CompressOptions = @("-mm=pax") }
         @{ Extension = ".tar"; CompressOptions = @("-mm=posix") }
@@ -44,6 +44,7 @@ Describe "roundtrip container tests" -ForEach @(
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -ExtractedDir "$TestDrive/extracted" `
             -CompressOptions $CompressOptions `
+            -ExpandOptions $ExpandOptions `
             -Verbose:$VerbosePreference
         Compare-TestDir `
             -ExpectedDir "$InputFile" `
@@ -65,6 +66,7 @@ Describe "roundtrip container tests" -ForEach @(
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -ExtractedDir "$TestDrive/extracted" `
             -CompressOptions $CompressOptions `
+            -ExpandOptions $ExpandOptions `
             -Verbose:$VerbosePreference
         Compare-TestDir `
             -ExpectedDir "$InputFile" `

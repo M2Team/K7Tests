@@ -32,8 +32,8 @@ function Compress-7zArchive {
         [string]$InputFile,
         [Parameter(Mandatory)]
         [string]$CompressedFile,
-        [Parameter(Mandatory)]
-        $CompressOptions,
+        [Parameter()]
+        $CompressOptions = @(),
         [Parameter()]
         [int]$ExpectedExitCode = 0
     )
@@ -63,11 +63,20 @@ function Expand-7zArchive {
         [Parameter(Mandatory)]
         [string]$ExtractedDir,
         [Parameter()]
+        $ExpandOptions = @(),
+        [Parameter()]
         [int]$ExpectedExitCode = 0
     )
 
     $Operation = if ($WithFullPath) { "x" } else { "e" }
-    $Output = & $Program $Operation $CompressedFile "-o$ExtractedDir" 2>&1
+    $ExpandArgs = @($Operation) + $ExpandOptions + @(
+        $CompressedFile,
+        "-o$ExtractedDir"
+    )
+
+    Write-Verbose ((@($Program) + $ExpandArgs) -join " ") -Verbose:$VerbosePreference
+
+    $Output = & $Program @ExpandArgs 2>&1
     $ExitCode = $LASTEXITCODE
     $Output | Write-Verbose -Verbose:$VerbosePreference
     $ExitCode | Should -Be $ExpectedExitCode
@@ -84,8 +93,10 @@ function Invoke-Roundtrip {
         [string]$CompressedFile,
         [Parameter(Mandatory)]
         [string]$ExtractedDir,
-        [Parameter(Mandatory)]
-        $CompressOptions
+        [Parameter()]
+        $CompressOptions = @(),
+        [Parameter()]
+        $ExpandOptions = @()
     )
 
     Compress-7zArchive `
@@ -99,6 +110,7 @@ function Invoke-Roundtrip {
         -Program $Program `
         -CompressedFile $CompressedFile `
         -ExtractedDir $ExtractedDir `
+        -ExpandOptions $ExpandOptions `
         -Verbose:$VerbosePreference
 }
 

@@ -15,10 +15,10 @@ Describe "operation tests" {
     . $PSScriptRoot/../fixtures/testdir.ps1
 
     It "adds to archive" -ForEach @(
-        @{ Extension = ".zip"; CompressOptions = @() }
-        @{ Extension = ".7z"; CompressOptions = @() }
-        @{ Extension = ".wim"; CompressOptions = @() }
-        @{ Extension = ".tar"; CompressOptions = @() }
+        @{ Extension = ".zip" }
+        @{ Extension = ".7z" }
+        @{ Extension = ".wim" }
+        @{ Extension = ".tar" }
         @{ Extension = ".cbz"; CompressOptions = @("-tzip") }
         @{ Extension = ".cb7"; CompressOptions = @("-t7z") }
     ) {
@@ -39,6 +39,7 @@ Describe "operation tests" {
             -WithFullPath `
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -ExtractedDir "$TestDrive/extracted" `
+            -ExpandOptions $ExpandOptions `
             -Verbose:$VerbosePreference
         Compare-TestDir `
             -ExpectedDir "$InputDir/cantrbry" `
@@ -49,10 +50,10 @@ Describe "operation tests" {
     }
 
     It "deletes from archive" -ForEach @(
-        @{ Extension = ".zip"; CompressOptions = @() }
-        @{ Extension = ".7z"; CompressOptions = @() }
-        @{ Extension = ".wim"; CompressOptions = @() }
-        @{ Extension = ".tar"; CompressOptions = @() }
+        @{ Extension = ".zip" }
+        @{ Extension = ".7z" }
+        @{ Extension = ".wim" }
+        @{ Extension = ".tar" }
         @{ Extension = ".cbz"; CompressOptions = @("-tzip") }
         @{ Extension = ".cb7"; CompressOptions = @("-t7z") }
     ) {
@@ -68,16 +69,17 @@ Describe "operation tests" {
             -Program $Program `
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -ExtractedDir "$TestDrive/extracted" `
+            -ExpandOptions $ExpandOptions `
             -Verbose:$VerbosePreference
         "$TestDrive/extracted/cantrbry/cp.html" | Should -Not -Exist
         "$TestDrive/extracted/cantrbry/kennedy.xls" | Should -Not -Exist
     }
 
     It "renames archive member" -ForEach @(
-        @{ Extension = ".zip"; CompressOptions = @() }
-        @{ Extension = ".7z"; CompressOptions = @() }
-        @{ Extension = ".wim"; CompressOptions = @() }
-        @{ Extension = ".tar"; CompressOptions = @() }
+        @{ Extension = ".zip" }
+        @{ Extension = ".7z" }
+        @{ Extension = ".wim" }
+        @{ Extension = ".tar" }
         @{ Extension = ".cbz"; CompressOptions = @("-tzip") }
         @{ Extension = ".cb7"; CompressOptions = @("-t7z") }
     ) {
@@ -94,6 +96,7 @@ Describe "operation tests" {
             -WithFullPath `
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -ExtractedDir "$TestDrive/extracted" `
+            -ExpandOptions $ExpandOptions `
             -Verbose:$VerbosePreference
         "$TestDrive/extracted/cantrbry/cp.html" | Should -Not -Exist
         "$TestDrive/extracted/cantrbry/cp.html.1" | Should -Exist

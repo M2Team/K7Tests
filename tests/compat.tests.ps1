@@ -24,11 +24,11 @@ Describe "regression tests" -ForEach @(
         @{ SevenZipAlone = "$BinDir/7za2501x64.exe"; MaxCompat = "2501" }
     ) {
         It "decompresses old archives" -ForEach @(
-            @{ Extension = ".zip"; CompressOptions = @() }
+            @{ Extension = ".zip" }
             @{ Extension = ".zip"; CompressOptions = @("-mm=Copy") }
             @{ Extension = ".zip"; CompressOptions = @("-mm=Deflate") }
             @{ Extension = ".zip"; CompressOptions = @("-mm=Deflate64") }
-            @{ Extension = ".7z"; CompressOptions = @() }
+            @{ Extension = ".7z" }
             @{ Extension = ".7z"; CompressOptions = @("-m0=LZMA") }
             @{ Extension = ".7z"; CompressOptions = @("-m0=LZMA2") }
             @{ Extension = ".7z"; CompressOptions = @("-m0=Copy") }
@@ -44,20 +44,17 @@ Describe "regression tests" -ForEach @(
                 -CompressedFile "$TestDrive/compressed/test$Extension" `
                 -ExtractedDir "$TestDrive/extracted" `
                 -Verbose:$VerbosePreference
-            Compare-TestDirFile `
-                -ExpectedDir "$InputFile" `
-                -ActualDir "$TestDrive/extracted"
-            Compare-TestDirMtime `
+            Compare-TestDir `
                 -ExpectedDir "$InputFile" `
                 -ActualDir "$TestDrive/extracted"
         }
 
         It "creates compatible archives" -ForEach @(
-            @{ Extension = ".zip"; CompressOptions = @() }
+            @{ Extension = ".zip" }
             @{ Extension = ".zip"; CompressOptions = @("-mm=Copy") }
             @{ Extension = ".zip"; CompressOptions = @("-mm=Deflate") }
             @{ Extension = ".zip"; CompressOptions = @("-mm=Deflate64") }
-            @{ Extension = ".7z"; CompressOptions = @() }
+            @{ Extension = ".7z" }
             @{ Extension = ".7z"; CompressOptions = @("-m0=LZMA") }
             @{ Extension = ".7z"; CompressOptions = @("-m0=LZMA2") }
             @{ Extension = ".7z"; CompressOptions = @("-m0=Copy") }
@@ -77,6 +74,7 @@ Describe "regression tests" -ForEach @(
                 -Program $SevenZipAlone `
                 -CompressedFile "$TestDrive/compressed/test$Extension" `
                 -ExtractedDir "$TestDrive/extracted" `
+                -ExpandOptions $ExpandOptions `
                 -Verbose:$VerbosePreference
             Compare-TestDir `
                 -ExpectedDir "$InputFile" `
@@ -96,6 +94,7 @@ Describe "regression tests" -ForEach @(
                 -Program $Program `
                 -CompressedFile "$TestDrive/compressed/test.7z" `
                 -ExtractedDir "$TestDrive/extracted" `
+                -ExpandOptions $ExpandOptions `
                 -Verbose:$VerbosePreference
             Compare-TestDir `
                 -ExpectedDir "$InputFile" `
