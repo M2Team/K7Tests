@@ -43,10 +43,7 @@ Describe "roundtrip container tests" -ForEach @(
             -ExtractedDir "$TestDrive/extracted" `
             -CompressOptions $CompressOptions `
             -Verbose:$VerbosePreference
-        Compare-TestDirFile `
-            -ExpectedDir "$InputFile" `
-            -ActualDir "$TestDrive/extracted"
-        Compare-TestDirMtime `
+        Compare-TestDir `
             -ExpectedDir "$InputFile" `
             -ActualDir "$TestDrive/extracted"
     }
@@ -67,10 +64,7 @@ Describe "roundtrip container tests" -ForEach @(
             -ExtractedDir "$TestDrive/extracted" `
             -CompressOptions $CompressOptions `
             -Verbose:$VerbosePreference
-        Compare-TestDirFile `
-            -ExpectedDir "$InputFile" `
-            -ActualDir "$TestDrive/extracted"
-        Compare-TestDirMtime `
+        Compare-TestDir `
             -ExpectedDir "$InputFile" `
             -ActualDir "$TestDrive/extracted"
     }

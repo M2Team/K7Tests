@@ -131,3 +131,15 @@ function Compare-TestDirMtime {
         $MtimeDiff | Should -BeGreaterThan ([timespan]::FromSeconds(-1))
     }
 }
+
+function Compare-TestDir {
+    param(
+        [Parameter(Mandatory)]
+        [string]$ExpectedDir,
+        [Parameter(Mandatory)]
+        [string]$ActualDir
+    )
+
+    Compare-TestDirFile -ExpectedDir $ExpectedDir -ActualDir $ActualDir
+    Compare-TestDirMtime -ExpectedDir $ExpectedDir -ActualDir $ActualDir
+}
