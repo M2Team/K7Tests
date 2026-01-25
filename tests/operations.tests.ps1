@@ -103,4 +103,36 @@ Describe "operation tests" {
         "$TestDrive/extracted/cantrbry/kennedy.xls" | Should -Not -Exist
         "$TestDrive/extracted/folder/kennedy.zip" | Should -Exist
     }
+
+    It "updates archive" -ForEach @(
+        @{ Extension = ".zip" }
+        @{ Extension = ".7z" }
+        @{ Extension = ".wim" }
+        @{ Extension = ".tar" }
+        @{ Extension = ".cbz"; CompressOptions = @("-tzip") }
+        @{ Extension = ".cb7"; CompressOptions = @("-t7z") }
+    ) {
+        Compress-7zArchive `
+            -Program $Program `
+            -InputFile "$InputDir/artificl/*" `
+            -CompressedFile "$TestDrive/compressed/test$Extension" `
+            -CompressOptions $CompressOptions `
+            -Verbose:$VerbosePreference
+        Push-Location "$TestDrive/scratch"
+        try {
+            Copy-Item "$InputDir/cantrbry/alice29.txt" "random.txt" -Force
+            & $Program u "$TestDrive/compressed/test$Extension" "random.txt"
+        }
+        finally {
+            Pop-Location
+        }
+        Expand-7zArchive `
+            -Program $Program `
+            -CompressedFile "$TestDrive/compressed/test$Extension" `
+            -ExtractedDir "$TestDrive/extracted" `
+            -ExpandOptions $ExpandOptions `
+            -Verbose:$VerbosePreference
+        "$TestDrive/extracted/random.txt" | `
+            Should -EqualFile "$InputDir/cantrbry/alice29.txt"
+    }
 }
