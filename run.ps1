@@ -33,6 +33,7 @@ if ($ExcludeTag.Length) {
 $Container = New-PesterContainer -Path $Path -Data @{
     Program  = $Program
     InputDir = "$PSScriptRoot/inputs"
+    BinDir   = "$PSScriptRoot/bin"
 }
 $Config.Run.Container = $Container
 Invoke-Pester -Configuration $Config

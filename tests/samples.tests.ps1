@@ -2,7 +2,9 @@ param(
     [Parameter(Mandatory)]
     [string]$Program,
     [Parameter(Mandatory)]
-    [string]$InputDir
+    [string]$InputDir,
+    [Parameter()]
+    [string]$BinDir
 )
 
 BeforeDiscovery {
