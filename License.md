@@ -66,5 +66,6 @@ SOFTWARE.
 - EDK II, https://github.com/tianocore/edk2
 - hg19.fa.gz, https://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/initial
 - MSYS2, https://www.msys2.org
+- NuttX, https://github.com/apache/nuttx
 - Rufus, https://github.com/pbatard/rufus
 - Debian Sid Sudo package, https://packages.debian.org/sid/sudo

@@ -67,6 +67,23 @@ The Rufus 4.6 ARM binary: https://github.com/pbatard/rufus/releases/tag/v4.6
 
 Binaries of Debian's Sudo package: https://packages.debian.org/sid/sudo
 
+## TestData/NanaZip.Codecs.Samples/Electron.Sample.asar
+
+Unknown origin.
+
+## TestData/NanaZip.Codecs.Samples/ROMFS.Sample.img
+
+Extracted from C file from:
+https://github.com/apache/nuttx/blob/nuttx-3.15/examples/romfs/romfs_testdir.h
+
+## TestData/NanaZip.Codecs.Samples/WebAssembly.Sample.wasm
+
+Simple "Hello World" WebAssembly WASI Application created by Kenji Mouri.
+
+## TestData/NanaZip.Codecs.Samples/ZealFS.V1.Sample.img
+
+Simple image with folders created by Kenji Mouri.
+
 ## TestData/CVE-2024-11477.zstd
 
 Taken from the PoC available here:
