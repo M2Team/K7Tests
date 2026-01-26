@@ -1,5 +1,8 @@
-﻿K7Tests
-=======
+﻿# NanaZip Test Suite (K7Tests)
+
+Test suite for NanaZip and related functionalities。
+
+## Usage
 
 These tests require PowerShell 7. To start the tests:
 
