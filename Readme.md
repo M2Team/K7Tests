@@ -1,4 +1,4 @@
-K7Tests
+﻿K7Tests
 =======
 
 These tests require PowerShell 7. To start the tests:
@@ -19,4 +19,12 @@ To regenerate the input file SHA256 list (using an Unix shell):
 
 ```
 find inputs/ -type f -print | sort | xargs -d '\n' sha256sum > inputs.sha256
+```
+
+Note for Windows Command Prompt:
+
+```
+Assets\MSYS2\sha256sum.exe -c inputs.sha256
+
+Assets\MSYS2\find.exe inputs/ -type f -print | Assets\MSYS2\sort.exe | Assets\MSYS2\xargs.exe -d '\n' Assets\MSYS2\sha256sum.exe -t > inputs.sha256
 ```

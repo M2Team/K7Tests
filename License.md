@@ -58,6 +58,8 @@ SOFTWARE.
 
 ### The third-party binaries used in NanaZip Test Suite (K7Tests)
 
+- MSYS2, https://www.msys2.org
+
 #### Test data information
 
 The Canterbury Corpus (`inputs/cantrbry`) and Artificial Corpus
