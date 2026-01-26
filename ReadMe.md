@@ -4,7 +4,7 @@ Test suite for NanaZip and related functionalities.
 
 ## Usage
 
-These tests require PowerShell 7 and Pester. To start the tests:
+These tests require PowerShell 7. To start the tests:
 
 ```
 .\run.ps1 -Program K7C.exe
