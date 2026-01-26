@@ -10,7 +10,7 @@ BeforeDiscovery {
 }
 
 Describe "regression tests" -ForEach @(
-    @{ InputFile = "$AssetsDir/TestData/executables" }
+    @{ InputFile = "$AssetsDir/TestData/Executables" }
 ) {
     . $PSScriptRoot/../fixtures/testdir.ps1
 

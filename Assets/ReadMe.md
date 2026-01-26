@@ -49,3 +49,46 @@ Read https://corpus.canterbury.ac.nz for more information.
 
 - Artificial from https://corpus.canterbury.ac.nz/resources/artificl.zip
 - Canterbury from https://corpus.canterbury.ac.nz/resources/cantrbry.zip
+
+## TestData/Executables/7z*
+
+7-Zip executables taken from historical releases:
+https://www.7-zip.org/download.html
+
+## TestData/Executables/Ping*.efi
+
+Taken from the EDK2 UDK 2017:
+https://github.com/tianocore/edk2/releases/tag/vUDK2017
+
+## TestData/Executables/rufus-4.6_arm.exe
+
+The Rufus 4.6 ARM binary: https://github.com/pbatard/rufus/releases/tag/v4.6
+
+## TestData/Executables/sudo-*.exe
+
+Binaries of Debian's Sudo package: https://packages.debian.org/sid/sudo
+
+## TestData/CVE-2024-11477.zstd
+
+Taken from the PoC available here:
+https://github.com/TheN00bBuilder/cve-2024-11477-writeup
+
+## TestData/CVE-2025-11001.zip
+
+Created from the CVE-2025-11001 PoC script here:
+https://github.com/pacbypass/CVE-2025-11001
+
+## TestData/CVE-2025-55188.tar
+
+Taken from the CVE-2025-55188 PoC available here:
+https://github.com/lunbun/CVE-2025-55188
+
+## TestData/hg19.fa.dk.bin
+
+This is a 32MiB slice starting from offset 2816MiB of the uncompressed file
+`hg19.fa` obtained from the `hg19.fa.gz` genome sequence downloaded from here:
+https://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/initial
+
+The MD5 sum of the compressed source file:
+
+```806c02398f5ac5da8ffd6da2d1d5d1a9  hg19.fa.gz```
