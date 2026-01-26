@@ -2,9 +2,7 @@ param(
     [Parameter(Mandatory)]
     [string]$Program,
     [Parameter(Mandatory)]
-    [string]$InputDir,
-    [Parameter()]
-    [string]$BinDir
+    [string]$AssetsDir
 )
 
 BeforeDiscovery {
@@ -12,8 +10,8 @@ BeforeDiscovery {
 }
 
 Describe "roundtrip container tests" -ForEach @(
-    @{ InputFile = "$InputDir/cantrbry" }
-    @{ InputFile = "$InputDir/artificl" }
+    @{ InputFile = "$AssetsDir/TestData/Canterbury" }
+    @{ InputFile = "$AssetsDir/TestData/Artificial" }
 ) {
     . $PSScriptRoot/../fixtures/testdir.ps1
 

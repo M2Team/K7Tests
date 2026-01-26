@@ -2,9 +2,7 @@ param(
     [Parameter(Mandatory)]
     [string]$Program,
     [Parameter(Mandatory)]
-    [string]$InputDir,
-    [Parameter(Mandatory)]
-    [string]$BinDir
+    [string]$AssetsDir
 )
 
 BeforeDiscovery {
@@ -12,16 +10,16 @@ BeforeDiscovery {
 }
 
 Describe "regression tests" -ForEach @(
-    @{ InputFile = "$InputDir/executables" }
+    @{ InputFile = "$AssetsDir/TestData/Executables" }
 ) {
     . $PSScriptRoot/../fixtures/testdir.ps1
 
     Context "with 7za" -Tag "slow" -ForEach @(
-        @{ SevenZipAlone = "$BinDir/7za920.exe"; MaxCompat = "920" }
-        @{ SevenZipAlone = "$BinDir/7za1604x64.exe"; MaxCompat = "1604" }
-        @{ SevenZipAlone = "$BinDir/7za1900x64.exe"; MaxCompat = "1900" }
-        @{ SevenZipAlone = "$BinDir/7za2301x64.exe"; MaxCompat = "2301" }
-        @{ SevenZipAlone = "$BinDir/7za2501x64.exe"; MaxCompat = "2501" }
+        @{ SevenZipAlone = "$AssetsDir/7-Zip/7za920.exe"; MaxCompat = "920" }
+        @{ SevenZipAlone = "$AssetsDir/7-Zip/7za1604x64.exe"; MaxCompat = "1604" }
+        @{ SevenZipAlone = "$AssetsDir/7-Zip/7za1900x64.exe"; MaxCompat = "1900" }
+        @{ SevenZipAlone = "$AssetsDir/7-Zip/7za2301x64.exe"; MaxCompat = "2301" }
+        @{ SevenZipAlone = "$AssetsDir/7-Zip/7za2501x64.exe"; MaxCompat = "2501" }
     ) {
         It "decompresses old archives" -ForEach @(
             @{ Extension = ".zip" }

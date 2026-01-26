@@ -17,7 +17,9 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$Policies = Get-ItemProperty HKLM:\SOFTWARE\Policies\M2Team\NanaZip
+$Policies = Get-ItemProperty `
+    -ErrorAction SilentlyContinue `
+    -LiteralPath HKLM:\SOFTWARE\Policies\M2Team\NanaZip
 if ($null -ne $Policies.AllowedHandlers ||
     $null -ne $Policies.BlockedHandlers ||
     $null -ne $Policies.AllowedCodecs ||
@@ -40,8 +42,7 @@ if ($ExcludeTag.Length) {
 
 $Container = New-PesterContainer -Path $Path -Data @{
     Program  = $Program
-    InputDir = "$PSScriptRoot/inputs"
-    BinDir   = "$PSScriptRoot/bin"
+    AssetsDir = "$PSScriptRoot/Assets"
 }
 $Config.Run.Container = $Container
 Invoke-Pester -Configuration $Config
