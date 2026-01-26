@@ -15,8 +15,8 @@ of the Software.
 
 ### The philosophy about open-source software from Kenji Mouri (MouriNaruto)
 
-- The source code from the third-party projects should be distributed under 
-  their original licenses to give the maximum respect for the upstream 
+- The source code from the third-party projects should be distributed under
+  their original licenses to give the maximum respect for the upstream
   projects.
 
 - Don't make your software open source if you don't want your source code or
@@ -60,7 +60,7 @@ SOFTWARE.
 
 - 7-Zip, https://www.7-zip.org
 - Canterbury Corpus, https://corpus.canterbury.ac.nz
-- cve-2024-11477-writeup, https://github.com/TheN00bBuilder/cve-2024-11477-writeup
+- CVE-2024-11477-writeup, https://github.com/TheN00bBuilder/cve-2024-11477-writeup
 - CVE-2025-11001, https://github.com/pacbypass/CVE-2025-11001
 - CVE-2025-55188, https://github.com/lunbun/CVE-2025-55188
 - EDK II, https://github.com/tianocore/edk2

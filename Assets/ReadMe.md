@@ -6,8 +6,7 @@
 
 Read https://www.7-zip.org for more information.
 
-We only contain 7-Zip command line edition binaries, which are as x64 binaries
-as possible.
+We use 7-Zip command line binaries of various versions and architectures.
 
 ### Contents used in NanaZip Test Suite (K7Tests)
 
@@ -65,7 +64,9 @@ The Rufus 4.6 ARM binary: https://github.com/pbatard/rufus/releases/tag/v4.6
 
 ## TestData/Executables/sudo-*.exe
 
-Binaries of Debian's Sudo package: https://packages.debian.org/sid/sudo
+Binaries of Debian's Sudo package, renamed with .exe extension to force enable
+the analysis of file data and the use of compression filters:
+https://packages.debian.org/sid/sudo
 
 ## TestData/NanaZip.Codecs.Samples/Electron.Sample.asar
 
