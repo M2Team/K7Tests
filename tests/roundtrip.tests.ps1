@@ -10,8 +10,8 @@ BeforeDiscovery {
 }
 
 Describe "roundtrip container tests" -ForEach @(
-    @{ InputFile = "$AssetsDir/TestData/cantrbry" }
-    @{ InputFile = "$AssetsDir/TestData/artificl" }
+    @{ InputFile = "$AssetsDir/TestData/Canterbury" }
+    @{ InputFile = "$AssetsDir/TestData/Artificial" }
 ) {
     . $PSScriptRoot/../fixtures/testdir.ps1
 

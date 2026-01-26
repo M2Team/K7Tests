@@ -9,7 +9,7 @@ BeforeDiscovery {
     Import-Module -Force "$PSScriptRoot/../helpers.psm1" -Verbose:$false
 }
 
-Describe "operation tests" @(
+Describe "operation tests" -ForEach @(
     @{ Extension = ".zip" }
     @{ Extension = ".7z" }
     @{ Extension = ".wim" }
@@ -19,16 +19,16 @@ Describe "operation tests" @(
 ) {
     . $PSScriptRoot/../fixtures/testdir.ps1
 
-    It "adds to archive" -ForEach {
+    It "adds to archive" {
         Compress-7zArchive `
             -Program $Program `
-            -InputFile "$AssetsDir/TestData/Corpus/Canterbury/" `
+            -InputFile "$AssetsDir/TestData/Canterbury/" `
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -CompressOptions $CompressOptions `
             -Verbose:$VerbosePreference
         Compress-7zArchive `
             -Program $Program `
-            -InputFile "$AssetsDir/TestData/Corpus/Artificial/" `
+            -InputFile "$AssetsDir/TestData/Artificial/" `
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -CompressOptions $CompressOptions `
             -Verbose:$VerbosePreference
@@ -40,21 +40,21 @@ Describe "operation tests" @(
             -ExpandOptions $ExpandOptions `
             -Verbose:$VerbosePreference
         Compare-TestDir `
-            -ExpectedDir "$AssetsDir/TestData/cantrbry" `
-            -ActualDir "$TestDrive/extracted/cantrbry"
+            -ExpectedDir "$AssetsDir/TestData/Canterbury" `
+            -ActualDir "$TestDrive/extracted/Canterbury"
         Compare-TestDir `
-            -ExpectedDir "$AssetsDir/TestData/artificl" `
-            -ActualDir "$TestDrive/extracted/artificl"
+            -ExpectedDir "$AssetsDir/TestData/Artificial" `
+            -ActualDir "$TestDrive/extracted/Artificial"
     }
 
     It "deletes from archive" {
         Compress-7zArchive `
             -Program $Program `
-            -InputFile "$AssetsDir/TestData/Corpus/Canterbury/" `
+            -InputFile "$AssetsDir/TestData/Canterbury/" `
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -CompressOptions $CompressOptions `
             -Verbose:$VerbosePreference
-        & $Program d "$TestDrive/compressed/test$Extension" "cantrbry/*.html"
+        & $Program d "$TestDrive/compressed/test$Extension" "Canterbury/*.html"
         & $Program d "$TestDrive/compressed/test$Extension" "*.xls" -r
         Expand-7zArchive `
             -Program $Program `
@@ -62,19 +62,19 @@ Describe "operation tests" @(
             -ExtractedDir "$TestDrive/extracted" `
             -ExpandOptions $ExpandOptions `
             -Verbose:$VerbosePreference
-        "$TestDrive/extracted/cantrbry/cp.html" | Should -Not -Exist
-        "$TestDrive/extracted/cantrbry/kennedy.xls" | Should -Not -Exist
+        "$TestDrive/extracted/Canterbury/cp.html" | Should -Not -Exist
+        "$TestDrive/extracted/Canterbury/kennedy.xls" | Should -Not -Exist
     }
 
     It "renames archive member" {
         Compress-7zArchive `
             -Program $Program `
-            -InputFile "$AssetsDir/TestData/Corpus/Canterbury/" `
+            -InputFile "$AssetsDir/TestData/Canterbury/" `
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -CompressOptions $CompressOptions `
             -Verbose:$VerbosePreference
-        & $Program rn "$TestDrive/compressed/test$Extension" "cantrbry/cp.html" "cantrbry/cp.html.1"
-        & $Program rn "$TestDrive/compressed/test$Extension" "cantrbry/kennedy.xls" "folder/kennedy.zip"
+        & $Program rn "$TestDrive/compressed/test$Extension" "Canterbury/cp.html" "Canterbury/cp.html.1"
+        & $Program rn "$TestDrive/compressed/test$Extension" "Canterbury/kennedy.xls" "folder/kennedy.zip"
         Expand-7zArchive `
             -Program $Program `
             -WithFullPath `
@@ -82,22 +82,22 @@ Describe "operation tests" @(
             -ExtractedDir "$TestDrive/extracted" `
             -ExpandOptions $ExpandOptions `
             -Verbose:$VerbosePreference
-        "$TestDrive/extracted/cantrbry/cp.html" | Should -Not -Exist
-        "$TestDrive/extracted/cantrbry/cp.html.1" | Should -Exist
-        "$TestDrive/extracted/cantrbry/kennedy.xls" | Should -Not -Exist
+        "$TestDrive/extracted/Canterbury/cp.html" | Should -Not -Exist
+        "$TestDrive/extracted/Canterbury/cp.html.1" | Should -Exist
+        "$TestDrive/extracted/Canterbury/kennedy.xls" | Should -Not -Exist
         "$TestDrive/extracted/folder/kennedy.zip" | Should -Exist
     }
 
-    It "updates archive" -ForEach {
+    It "updates archive" {
         Compress-7zArchive `
             -Program $Program `
-            -InputFile "$AssetsDir/TestData/Corpus/Artificial/*" `
+            -InputFile "$AssetsDir/TestData/Artificial/*" `
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -CompressOptions $CompressOptions `
             -Verbose:$VerbosePreference
         Push-Location "$TestDrive/scratch"
         try {
-            Copy-Item "$AssetsDir/TestData/Corpus/Canterbury/alice29.txt" "random.txt" -Force
+            Copy-Item "$AssetsDir/TestData/Canterbury/alice29.txt" "random.txt" -Force
             & $Program u "$TestDrive/compressed/test$Extension" "random.txt"
         }
         finally {
@@ -110,6 +110,6 @@ Describe "operation tests" @(
             -ExpandOptions $ExpandOptions `
             -Verbose:$VerbosePreference
         "$TestDrive/extracted/random.txt" | `
-            Should -EqualFile "$AssetsDir/TestData/Corpus/Canterbury/alice29.txt"
+            Should -EqualFile "$AssetsDir/TestData/Canterbury/alice29.txt"
     }
 }

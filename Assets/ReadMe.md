@@ -37,18 +37,17 @@ Here are the commands included in this repository:
 - sort
 - xargs
 
-## TestData/Corpus
+## TestData/Artificial
 
-The Canterbury Corpus is a benchmark to enable researchers to evaluate lossless
-compression methods. This site includes test files and compression test results
-for many research compression methods.
+Taken from https://corpus.canterbury.ac.nz/resources/artificl.zip.
 
 Read https://corpus.canterbury.ac.nz for more information.
 
-### Contents used in NanaZip Test Suite (K7Tests)
+## TestData/Canterbury
 
-- Artificial from https://corpus.canterbury.ac.nz/resources/artificl.zip
-- Canterbury from https://corpus.canterbury.ac.nz/resources/cantrbry.zip
+Taken from https://corpus.canterbury.ac.nz/resources/cantrbry.zip
+
+Read https://corpus.canterbury.ac.nz for more information.
 
 ## TestData/Executables/7z*
 
