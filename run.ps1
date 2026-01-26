@@ -17,15 +17,14 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$PolicyKeyPath = 'HKLM:\SOFTWARE\Policies\M2Team\NanaZip'
-if (Test-Path -LiteralPath $PolicyKeyPath) {
-    $Policies = Get-ItemProperty -LiteralPath $PolicyKeyPath
-    if ($null -ne $Policies.AllowedHandlers -or
-        $null -ne $Policies.BlockedHandlers -or
-        $null -ne $Policies.AllowedCodecs -or
-        $null -ne $Policies.BlockedCodecs) {
-        throw "Detected handler/codec policies, aborting"
-    }
+$Policies = Get-ItemProperty `
+    -ErrorAction SilentlyContinue `
+    -LiteralPath HKLM:\SOFTWARE\Policies\M2Team\NanaZip
+if ($null -ne $Policies.AllowedHandlers ||
+    $null -ne $Policies.BlockedHandlers ||
+    $null -ne $Policies.AllowedCodecs ||
+    $null -ne $Policies.BlockedCodecs) {
+    throw "Detected handler/codec policies, aborting"
 }
 
 Import-Module Pester -MinimumVersion 5.0.0 -Verbose:$false
