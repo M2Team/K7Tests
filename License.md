@@ -59,13 +59,10 @@ SOFTWARE.
 ### The third-party binaries used in NanaZip Test Suite (K7Tests)
 
 - 7-Zip, https://www.7-zip.org
+- Canterbury Corpus, https://corpus.canterbury.ac.nz
 - MSYS2, https://www.msys2.org
 
 #### Test data information
-
-The Canterbury Corpus (`inputs/cantrbry`) and Artificial Corpus
-(`inputs/artificl`) are compiled by the University of Canterbury:
-https://corpus.canterbury.ac.nz
 
 `inputs/hg19.fa.dk.bin` is a 32MiB slice starting from offset 2816MiB of the
 uncompressed file `hg19.fa` obtained from the `hg19.fa.gz` genome sequence
