@@ -2,9 +2,7 @@ param(
     [Parameter(Mandatory)]
     [string]$Program,
     [Parameter(Mandatory)]
-    [string]$AssetsDir,
-    [Parameter(Mandatory)]
-    [string]$InputDir
+    [string]$AssetsDir
 )
 
 BeforeDiscovery {
@@ -12,7 +10,7 @@ BeforeDiscovery {
 }
 
 Describe "regression tests" -ForEach @(
-    @{ InputFile = "$InputDir/executables" }
+    @{ InputFile = "$AssetsDir/TestData/executables" }
 ) {
     . $PSScriptRoot/../fixtures/testdir.ps1
 

@@ -2,9 +2,7 @@ param(
     [Parameter(Mandatory)]
     [string]$Program,
     [Parameter(Mandatory)]
-    [string]$AssetsDir,
-    [Parameter(Mandatory)]
-    [string]$InputDir
+    [string]$AssetsDir
 )
 
 BeforeDiscovery {
@@ -15,10 +13,10 @@ Describe "NanaZip-specific container tests" -Tag "NanaZip" {
     . $PSScriptRoot/../fixtures/testdir.ps1
 
     It "parses the archive" -ForEach @(
-        @{ InputFile = "$InputDir/NanaZip.Tests.Samples/Electron.Sample.asar" }
-        # @{ InputFile = "$InputDir/NanaZip.Tests.Samples/ROMFS.Sample.img" }
-        @{ InputFile = "$InputDir/NanaZip.Tests.Samples/WebAssembly.Sample.wasm" }
-        @{ InputFile = "$InputDir/NanaZip.Tests.Samples/ZealFS.V1.Sample.img" }
+        @{ InputFile = "$AssetsDir/TestData/NanaZip.Tests.Samples/Electron.Sample.asar" }
+        # @{ InputFile = "$AssetsDir/TestData/NanaZip.Tests.Samples/ROMFS.Sample.img" }
+        @{ InputFile = "$AssetsDir/TestData/NanaZip.Tests.Samples/WebAssembly.Sample.wasm" }
+        @{ InputFile = "$AssetsDir/TestData/NanaZip.Tests.Samples/ZealFS.V1.Sample.img" }
     ) {
         $Output = & $Program t $InputFile 2>&1
         $ExitCode = $LASTEXITCODE

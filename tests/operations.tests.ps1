@@ -2,9 +2,7 @@ param(
     [Parameter(Mandatory)]
     [string]$Program,
     [Parameter(Mandatory)]
-    [string]$AssetsDir,
-    [Parameter(Mandatory)]
-    [string]$InputDir
+    [string]$AssetsDir
 )
 
 BeforeDiscovery {
@@ -24,13 +22,13 @@ Describe "operation tests" @(
     It "adds to archive" -ForEach {
         Compress-7zArchive `
             -Program $Program `
-            -InputFile "$InputDir/cantrbry/" `
+            -InputFile "$AssetsDir/TestData/cantrbry/" `
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -CompressOptions $CompressOptions `
             -Verbose:$VerbosePreference
         Compress-7zArchive `
             -Program $Program `
-            -InputFile "$InputDir/artificl/" `
+            -InputFile "$AssetsDir/TestData/artificl/" `
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -CompressOptions $CompressOptions `
             -Verbose:$VerbosePreference
@@ -42,17 +40,17 @@ Describe "operation tests" @(
             -ExpandOptions $ExpandOptions `
             -Verbose:$VerbosePreference
         Compare-TestDir `
-            -ExpectedDir "$InputDir/cantrbry" `
+            -ExpectedDir "$AssetsDir/TestData/cantrbry" `
             -ActualDir "$TestDrive/extracted/cantrbry"
         Compare-TestDir `
-            -ExpectedDir "$InputDir/artificl" `
+            -ExpectedDir "$AssetsDir/TestData/artificl" `
             -ActualDir "$TestDrive/extracted/artificl"
     }
 
     It "deletes from archive" {
         Compress-7zArchive `
             -Program $Program `
-            -InputFile "$InputDir/cantrbry/" `
+            -InputFile "$AssetsDir/TestData/cantrbry/" `
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -CompressOptions $CompressOptions `
             -Verbose:$VerbosePreference
@@ -71,7 +69,7 @@ Describe "operation tests" @(
     It "renames archive member" {
         Compress-7zArchive `
             -Program $Program `
-            -InputFile "$InputDir/cantrbry/" `
+            -InputFile "$AssetsDir/TestData/cantrbry/" `
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -CompressOptions $CompressOptions `
             -Verbose:$VerbosePreference
@@ -93,13 +91,13 @@ Describe "operation tests" @(
     It "updates archive" -ForEach {
         Compress-7zArchive `
             -Program $Program `
-            -InputFile "$InputDir/artificl/*" `
+            -InputFile "$AssetsDir/TestData/artificl/*" `
             -CompressedFile "$TestDrive/compressed/test$Extension" `
             -CompressOptions $CompressOptions `
             -Verbose:$VerbosePreference
         Push-Location "$TestDrive/scratch"
         try {
-            Copy-Item "$InputDir/cantrbry/alice29.txt" "random.txt" -Force
+            Copy-Item "$AssetsDir/TestData/cantrbry/alice29.txt" "random.txt" -Force
             & $Program u "$TestDrive/compressed/test$Extension" "random.txt"
         }
         finally {
@@ -112,6 +110,6 @@ Describe "operation tests" @(
             -ExpandOptions $ExpandOptions `
             -Verbose:$VerbosePreference
         "$TestDrive/extracted/random.txt" | `
-            Should -EqualFile "$InputDir/cantrbry/alice29.txt"
+            Should -EqualFile "$AssetsDir/TestData/cantrbry/alice29.txt"
     }
 }

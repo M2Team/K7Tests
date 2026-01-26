@@ -2,9 +2,7 @@ param(
     [Parameter(Mandatory)]
     [string]$Program,
     [Parameter(Mandatory)]
-    [string]$AssetsDir,
-    [Parameter(Mandatory)]
-    [string]$InputDir
+    [string]$AssetsDir
 )
 
 BeforeDiscovery {
@@ -15,7 +13,7 @@ Describe "CVE tests" {
     . $PSScriptRoot/../fixtures/testdir.ps1
 
     It "is immune to CVE-2024-11477" {
-        $Output = & $Program x "$InputDir/CVE-2024-11477.zstd" "-o$TestDrive/extracted" 2>&1
+        $Output = & $Program x "$AssetsDir/TestData/CVE-2024-11477.zstd" "-o$TestDrive/extracted" 2>&1
         $ExitCode = $LASTEXITCODE
         $Output | Write-Verbose -Verbose:$VerbosePreference
         $ExitCode | Should -Be 2 -Because "2 means extraction error is handled"
@@ -42,7 +40,7 @@ Describe "CVE tests" {
         }
 
         It "is immune to CVE-2025-11001" {
-            $Output = & $Program x "$InputDir/CVE-2025-11001.zip" "-o$TestDrive/extracted" 2>&1
+            $Output = & $Program x "$AssetsDir/TestData/CVE-2025-11001.zip" "-o$TestDrive/extracted" 2>&1
             $Output | Write-Verbose -Verbose:$VerbosePreference
 
             $DroppedFile | Should -Not -Exist
@@ -50,7 +48,7 @@ Describe "CVE tests" {
     }
 
     It "is immune to CVE-2025-55188" {
-        $Output = & $Program x "$InputDir/CVE-2025-55188.tar" "-o$TestDrive/extracted" 2>&1
+        $Output = & $Program x "$AssetsDir/TestData/CVE-2025-55188.tar" "-o$TestDrive/extracted" 2>&1
         $Output | Write-Verbose -Verbose:$VerbosePreference
 
         (Get-Item TestDrive:/extracted/link).Target | Should -Not -BeLike "..*"
