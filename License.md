@@ -58,6 +58,7 @@ SOFTWARE.
 
 ### The third-party binaries used in NanaZip Test Suite (K7Tests)
 
+- 7-Zip, https://www.7-zip.org
 - MSYS2, https://www.msys2.org
 
 #### Test data information
