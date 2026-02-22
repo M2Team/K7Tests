@@ -117,4 +117,43 @@ https://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/initial
 
 The MD5 sum of the compressed source file:
 
-```806c02398f5ac5da8ffd6da2d1d5d1a9  hg19.fa.gz```
+```
+806c02398f5ac5da8ffd6da2d1d5d1a9  hg19.fa.gz
+```
+
+## TestData/Deb
+
+These are Debian package files generated from the Artificial corpus described
+above. Use the following command from a machine with dpkg-deb to recreate them:
+
+```
+cd Assets/TestData/Deb/Build
+cp ../../Artificial/* .
+for i in gzip xz zstd none
+do
+    rm -f ../Artificial-$i.deb
+    SOURCE_DATE_EPOCH=1630368000 dpkg-deb -b -Z$i --nocheck . ../Artificial-$i.deb
+done
+```
+
+## TestData/Rpm
+
+These are RPM package files generated from the Artificial corpus described
+above. Use the following command from a machine with rpmbuild to recreate them:
+
+```
+cd Assets/TestData/Rpm/Build
+cp ../../Artificial/* .
+for i in w9.gzdio w9.bzdio w9.lzdio w9.xzdio w19.zstdio w0.ufdio
+do
+    rm -f ../Artificial-1.0-1.noarch.$i.rpm
+    SOURCE_DATE_EPOCH=1630368000 \
+        rpmbuild -bb \
+        --define "_sourcedir $(pwd)" \
+        --define "_binary_payload $i" \
+        --define "clamp_mtime_to_source_date_epoch 1" \
+        --define "use_source_date_epoch_as_buildtime 1" \
+        Artificial.spec
+    cp -f $HOME/rpmbuild/RPMS/noarch/Artificial-1.0-1.noarch.rpm ../Artificial-1.0-1.noarch.$i.rpm
+done
+```
