@@ -47,6 +47,7 @@ Here are the commands included in this repository:
 - sort
 - xargs
 - bsdtar
+- gzip
 
 ## TestData/Artificial
 

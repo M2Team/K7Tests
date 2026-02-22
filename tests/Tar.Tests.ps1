@@ -29,6 +29,7 @@ Describe "compressed tar tests" -Tag "NanaZip" -ForEach @(
         @{ Extension = ".tar.Z"; Compressor = "compress" }
         @{ Extension = ".tzst"; Compressor = "zstd" }
         @{ Extension = ".tar.zst"; Compressor = "zstd" }
+        @{ Extension = ".tar"; Compressor = "auto-compress" }
     ) {
         $TarPath = "$AssetsDir/MSYS2/bsdtar.exe"
         $CompressedFile = "$TestDrive/compressed/test$Extension"
@@ -55,5 +56,29 @@ Describe "compressed tar tests" -Tag "NanaZip" -ForEach @(
         Compare-TestDir `
             -ExpectedDir "$InputFile" `
             -ActualDir "$TestDrive/extracted"
+    }
+
+    Context "works on individual files" -ForEach @(
+        @{ InputOneFile = "$InputFile/a.txt" }
+    ) {
+        It "does not interfere with non-tar" -ForEach @(
+            @{ Extension = ".gz"; Compressor = "gzip" }
+        ) {
+            $CompressorPath = "$AssetsDir/MSYS2/$Compressor.exe"
+            $CompressedFile = "$TestDrive/compressed/a.txt$Extension"
+
+            Invoke-Expression "$CompressorPath -c $InputOneFile > $CompressedFile" `
+                -ErrorVariable Output
+            $ExitCode = $LASTEXITCODE
+            $Output | Write-Verbose -Verbose:$VerbosePreference
+            $ExitCode | Should -Be 0
+
+            Expand-7zArchive `
+                -Program $Program `
+                -CompressedFile $CompressedFile `
+                -ExtractedDir "$TestDrive/extracted" `
+                -Verbose:$VerbosePreference
+            "$TestDrive/extracted/a.txt" | Should -EqualFile $InputOneFile
+        }
     }
 }
