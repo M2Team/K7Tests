@@ -13,7 +13,7 @@ Describe "CVE tests" {
     . $PSScriptRoot/../fixtures/testdir.ps1
 
     It "is immune to CVE-2024-11477" {
-        $Output = & $Program x "$AssetsDir/TestData/CVE-2024-11477.zstd" "-o$TestDrive/extracted" 2>&1
+        $Output = & $Program x "$AssetsDir/TestData/CVE/CVE-2024-11477.zstd" "-o$TestDrive/extracted" 2>&1
         $ExitCode = $LASTEXITCODE
         $Output | Write-Verbose -Verbose:$VerbosePreference
         $ExitCode | Should -Be 2 -Because "2 means extraction error is handled"
@@ -40,7 +40,7 @@ Describe "CVE tests" {
         }
 
         It "is immune to CVE-2025-11001" {
-            $Output = & $Program x "$AssetsDir/TestData/CVE-2025-11001.zip" "-o$TestDrive/extracted" 2>&1
+            $Output = & $Program x "$AssetsDir/TestData/CVE/CVE-2025-11001.zip" "-o$TestDrive/extracted" 2>&1
             $Output | Write-Verbose -Verbose:$VerbosePreference
 
             $DroppedFile | Should -Not -Exist
@@ -48,9 +48,60 @@ Describe "CVE tests" {
     }
 
     It "is immune to CVE-2025-55188" {
-        $Output = & $Program x "$AssetsDir/TestData/CVE-2025-55188.tar" "-o$TestDrive/extracted" 2>&1
+        $Output = & $Program x "$AssetsDir/TestData/CVE/CVE-2025-55188.tar" "-o$TestDrive/extracted" 2>&1
         $Output | Write-Verbose -Verbose:$VerbosePreference
 
         (Get-Item TestDrive:/extracted/link).Target | Should -Not -BeLike "..*"
+    }
+
+    It "is immune to CVE-2026-26282" -Tag "NanaZip" {
+        $Output = & $Program t "$AssetsDir/TestData/CVE/CVE-2026-26282.exe" 2>&1
+        $Output | Write-Verbose -Verbose:$VerbosePreference
+
+        $Output | Select-String "Cannot open the file as archive" | Should -BeTrue
+    }
+
+    It "is immune to CVE-2026-27014" -Tag "NanaZip" {
+        $Output = & $Program t "$AssetsDir/TestData/CVE/CVE-2026-27014.bin" 2>&1
+        $ExitCode = $LASTEXITCODE
+        $Output | Write-Verbose -Verbose:$VerbosePreference
+        $ExitCode | Should -Be 0
+    }
+
+    It "is immune to CVE-2026-27114" -Tag "NanaZip" {
+        $Job = Start-Job -ScriptBlock {
+            $V = $Using:VerbosePreference
+            & $Using:Program t "$Using:AssetsDir/TestData/CVE/CVE-2026-27114.bin" 2>&1 | Write-Verbose -Verbose:$V
+            return $LASTEXITCODE
+        }
+        $ExitCode = $Job | Wait-Job -Timeout 2 | Stop-Job -PassThru | Receive-Job -Wait -AutoRemoveJob
+        $ExitCode | Should -Be 2
+    }
+
+    It "is immune to CVE-2026-27709" -Tag "NanaZip" {
+        $Output = & $Program t "$AssetsDir/TestData/CVE/CVE-2026-27709.coreclrapphost" 2>&1
+        $ExitCode = $LASTEXITCODE
+        $Output | Write-Verbose -Verbose:$VerbosePreference
+
+        $Output | Select-String "Cannot open the file as archive" | Should -BeTrue
+        $ExitCode | Should -Be 2
+    }
+
+    It "is immune to CVE-2026-27710" -Tag "NanaZip" {
+        $Output = & $Program t "$AssetsDir/TestData/CVE/CVE-2026-27710.coreclrapphost" 2>&1
+        $ExitCode = $LASTEXITCODE
+        $Output | Write-Verbose -Verbose:$VerbosePreference
+
+        $Output | Select-String "Cannot open the file as archive" | Should -BeTrue
+        $ExitCode | Should -Be 2
+    }
+
+    It "is immune to CVE-2026-27711" -Tag "NanaZip" {
+        $Output = & $Program t "$AssetsDir/TestData/CVE/CVE-2026-27711.ufs" 2>&1
+        $ExitCode = $LASTEXITCODE
+        $Output | Write-Verbose -Verbose:$VerbosePreference
+
+        $Output | Select-String "Cannot open the file as archive" | Should -BeTrue
+        $ExitCode | Should -Be 2
     }
 }
