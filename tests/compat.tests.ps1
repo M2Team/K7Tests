@@ -14,7 +14,7 @@ Describe "regression tests" -ForEach @(
 ) {
     . $PSScriptRoot/../fixtures/testdir.ps1
 
-    Context "with 7za" -Tag "slow" -ForEach @(
+    Context "with 7za" -Tag "Slow" -ForEach @(
         @{ SevenZipAlone = "$AssetsDir/7-Zip/7za920.exe"; MaxCompat = "920" }
         @{ SevenZipAlone = "$AssetsDir/7-Zip/7za1604x64.exe"; MaxCompat = "1604" }
         @{ SevenZipAlone = "$AssetsDir/7-Zip/7za1900x64.exe"; MaxCompat = "1900" }

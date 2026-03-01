@@ -54,11 +54,14 @@ Describe "CVE tests" {
         (Get-Item TestDrive:/extracted/link).Target | Should -Not -BeLike "..*"
     }
 
-    It "is immune to CVE-2026-26282" -Tag "NanaZip" {
+    It "is immune to CVE-2026-26282" -Tag "NanaZip", "Output" {
         $Output = & $Program t "$AssetsDir/TestData/CVE/CVE-2026-26282.exe" 2>&1
+        $ExitCode = $LASTEXITCODE
         $Output | Write-Verbose -Verbose:$VerbosePreference
 
+        # Vulnerable versions may report "Unexpected end of archive"
         $Output | Select-String "Cannot open the file as archive" | Should -BeTrue
+        $ExitCode | Should -Be 2
     }
 
     It "is immune to CVE-2026-27014" -Tag "NanaZip" {
@@ -78,29 +81,32 @@ Describe "CVE tests" {
         $ExitCode | Should -Be 2
     }
 
-    It "is immune to CVE-2026-27709" -Tag "NanaZip" {
+    It "is immune to CVE-2026-27709" -Tag "NanaZip", "Output" {
         $Output = & $Program t "$AssetsDir/TestData/CVE/CVE-2026-27709.coreclrapphost" 2>&1
         $ExitCode = $LASTEXITCODE
         $Output | Write-Verbose -Verbose:$VerbosePreference
 
+        # Vulnerable versions may report "Unexpected end of archive"
         $Output | Select-String "Cannot open the file as archive" | Should -BeTrue
         $ExitCode | Should -Be 2
     }
 
-    It "is immune to CVE-2026-27710" -Tag "NanaZip" {
+    It "is immune to CVE-2026-27710" -Tag "NanaZip", "Output" {
         $Output = & $Program t "$AssetsDir/TestData/CVE/CVE-2026-27710.coreclrapphost" 2>&1
         $ExitCode = $LASTEXITCODE
         $Output | Write-Verbose -Verbose:$VerbosePreference
 
+        # Unnecessary but added to avoid false negatives
         $Output | Select-String "Cannot open the file as archive" | Should -BeTrue
         $ExitCode | Should -Be 2
     }
 
-    It "is immune to CVE-2026-27711" -Tag "NanaZip" {
+    It "is immune to CVE-2026-27711" -Tag "NanaZip", "Output" {
         $Output = & $Program t "$AssetsDir/TestData/CVE/CVE-2026-27711.ufs" 2>&1
         $ExitCode = $LASTEXITCODE
         $Output | Write-Verbose -Verbose:$VerbosePreference
 
+        # Unnecessary but added to avoid false negatives
         $Output | Select-String "Cannot open the file as archive" | Should -BeTrue
         $ExitCode | Should -Be 2
     }
