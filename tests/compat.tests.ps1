@@ -21,6 +21,7 @@ Describe "regression tests" -ForEach @(
         @{ SevenZipAlone = "$AssetsDir/7-Zip/7za2301x64.exe"; MaxCompat = "2301" }
         @{ SevenZipAlone = "$AssetsDir/7-Zip/7za2501x64.exe"; MaxCompat = "2501" }
         @{ SevenZipAlone = "$AssetsDir/7-Zip/7za2600x64.exe"; MaxCompat = "2600" }
+        @{ SevenZipAlone = "$AssetsDir/7-Zip/7za2601x64.exe"; MaxCompat = "2601" }
     ) {
         It "decompresses old archives" -ForEach @(
             @{ Extension = ".zip" }
