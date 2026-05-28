@@ -16,6 +16,13 @@ We use 7-Zip command line binaries of various versions and architectures.
 - 7za2301x64.exe from x64/7za.exe in https://www.7-zip.org/a/7z2301-extra.7z
 - 7za2501x64.exe from x64/7za.exe in https://www.7-zip.org/a/7z2501-extra.7z
 
+## Fuzzing
+
+Set of fuzzing corpora and dictionaries for NanaZip-specific formats, prepared
+by Jaroslav Lobačevski.
+
+For use with special fuzzing-enabled builds of NanaZip.
+
 ## MSYS2
 
 MSYS2 is a collection of tools and libraries providing you with an easy-to-use

@@ -1,2 +1,3 @@
+Assets/Fuzzing/** -text
 Assets/TestData/** -text
 Assets/Assets.sha256 text eol=lf
