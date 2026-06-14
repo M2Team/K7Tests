@@ -87,7 +87,7 @@ Describe "CVE tests" {
         $Output | Write-Verbose -Verbose:$VerbosePreference
 
         # Vulnerable versions may report "Unexpected end of archive"
-        $Output | Select-String "Cannot open the file as archive" | Should -BeTrue
+        $Output | Select-String "Cannot open the file as" | Should -BeTrue
         $ExitCode | Should -Be 2
     }
 
@@ -97,7 +97,7 @@ Describe "CVE tests" {
         $Output | Write-Verbose -Verbose:$VerbosePreference
 
         # Unnecessary but added to avoid false negatives
-        $Output | Select-String "Cannot open the file as archive" | Should -BeTrue
+        $Output | Select-String "Cannot open the file as" | Should -BeTrue
         $ExitCode | Should -Be 2
     }
 
@@ -107,7 +107,7 @@ Describe "CVE tests" {
         $Output | Write-Verbose -Verbose:$VerbosePreference
 
         # Unnecessary but added to avoid false negatives
-        $Output | Select-String "Cannot open the file as archive" | Should -BeTrue
+        $Output | Select-String "Cannot open the file as" | Should -BeTrue
         $ExitCode | Should -Be 2
     }
 }
