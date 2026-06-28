@@ -110,4 +110,63 @@ Describe "CVE tests" {
         $Output | Select-String "Cannot open the file as" | Should -BeTrue
         $ExitCode | Should -Be 2
     }
+
+    It "is immune to CVE-2026-48092 (GHSL-2026-116)" -Tag "ASAN" {
+        $Output = & $Program x "$AssetsDir/TestData/CVE/JarLob/CVE-2026-48092.squashfs" "-o$TestDrive/extracted" 2>&1
+        $ExitCode = $LASTEXITCODE
+        $Output | Write-Verbose -Verbose:$VerbosePreference
+
+        $ExitCode | Should -Be 2
+    }
+
+    It "is immune to CVE-2026-48101 (GHSL-2026-117)" -Tag "Output" {
+        $Output = & $Program x "$AssetsDir/TestData/CVE/JarLob/CVE-2026-48101.scap" "-o$TestDrive/extracted" 2>&1
+        $ExitCode = $LASTEXITCODE
+        $Output | Write-Verbose -Verbose:$VerbosePreference
+
+        $Output | Select-String "Cannot open the file as" | Should -BeTrue
+        $ExitCode | Should -Be 2
+    }
+
+    It "is immune to CVE-2026-48102 (GHSL-2026-118)" -Tag "ASAN" {
+        $Output = & $Program l "$AssetsDir/TestData/CVE/JarLob/CVE-2026-48102.iso" 2>&1
+        $ExitCode = $LASTEXITCODE
+        $Output | Write-Verbose -Verbose:$VerbosePreference
+
+        $ExitCode | Should -Be 2
+    }
+
+    It "is immune to CVE-2026-48103 (GHSL-2026-119)" -Tag "ASAN" {
+        $Output = & $Program l "$AssetsDir/TestData/CVE/JarLob/CVE-2026-48103.wim" 2>&1
+        $ExitCode = $LASTEXITCODE
+        $Output | Write-Verbose -Verbose:$VerbosePreference
+
+        $ExitCode | Should -Be 2
+    }
+
+    It "is immune to CVE-2026-48104 (GHSL-2026-120)" -Tag "ASAN" {
+        $Output = & $Program l "$AssetsDir/TestData/CVE/JarLob/CVE-2026-48104.squashfs" 2>&1
+        $ExitCode = $LASTEXITCODE
+        $Output | Write-Verbose -Verbose:$VerbosePreference
+
+        $ExitCode | Should -Be 2
+    }
+
+    It "is immune to CVE-2026-48111 (GHSL-2026-121)" -Tag "Output" {
+        $Output = & $Program l "$AssetsDir/TestData/CVE/JarLob/CVE-2026-48111.uefif" 2>&1
+        $ExitCode = $LASTEXITCODE
+        $Output | Write-Verbose -Verbose:$VerbosePreference
+
+        $Output | Select-String "Type = UEFIf" | Should -BeTrue
+        $Output | Select-String "04030201\.DXE_DEPEX" | Should -BeTrue
+        $ExitCode | Should -Be 0
+    }
+
+    It "is immune to CVE-2026-48112 (GHSL-2026-122)" -Tag "ASAN" {
+        $Output = & $Program l "$AssetsDir/TestData/CVE/JarLob/CVE-2026-48112.a" 2>&1
+        $ExitCode = $LASTEXITCODE
+        $Output | Write-Verbose -Verbose:$VerbosePreference
+
+        $ExitCode | Should -Be 0
+    }
 }

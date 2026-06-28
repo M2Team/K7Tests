@@ -18,6 +18,12 @@ We use 7-Zip command line binaries of various versions and architectures.
 - 7za2600x64.exe from x64/7za.exe in https://www.7-zip.org/a/7z2600-extra.7z
 - 7za2601x64.exe from x64/7za.exe in https://www.7-zip.org/a/7z2601-extra.7z
 
+## NanaZip
+
+We provide special builds of NanaZip with ASAN enabled for validation purposes:
+
+- NanaZip\6.0.1691.0_Binaries_ASAN_x64\NanaZip.Universal.Console.exe
+
 ## Fuzzing
 
 Set of fuzzing corpora and dictionaries for NanaZip-specific formats, prepared
@@ -94,20 +100,26 @@ Simple "Hello World" WebAssembly WASI Application created by Kenji Mouri.
 
 Simple image with folders created by Kenji Mouri.
 
-## TestData/CVE-2024-11477.zstd
+## TestData/CVE/CVE-2024-11477.zstd
 
 Taken from the PoC available here:
 https://github.com/TheN00bBuilder/cve-2024-11477-writeup
 
-## TestData/CVE-2025-11001.zip
+## TestData/CVE/CVE-2025-11001.zip
 
 Created from the CVE-2025-11001 PoC script here:
 https://github.com/pacbypass/CVE-2025-11001
 
-## TestData/CVE-2025-55188.tar
+## TestData/CVE/CVE-2025-55188.tar
 
 Taken from the CVE-2025-55188 PoC available here:
 https://github.com/lunbun/CVE-2025-55188
+
+## TestData/CVE/JarLob/*
+
+Created from the PoC generators for GHSL-2026-116 to GHSL-2026-122 by Jaroslav
+Lobačevski:
+https://securitylab.github.com/advisories/GHSL-2026-115_GHSL-2026-122_7-zip/
 
 ## TestData/hg19.fa.dk.bin
 
