@@ -16,7 +16,8 @@ We use 7-Zip command line binaries of various versions and architectures.
 - 7za2301x64.exe from x64/7za.exe in https://www.7-zip.org/a/7z2301-extra.7z
 - 7za2501x64.exe from x64/7za.exe in https://www.7-zip.org/a/7z2501-extra.7z
 - 7za2600x64.exe from x64/7za.exe in https://www.7-zip.org/a/7z2600-extra.7z
-- 7za2601x64.exe from x64/7za.exe in https://www.7-zip.org/a/7z2601-extra.7z
+- 7za2601.exe from 7za.exe in https://www.7-zip.org/a/7z2601-extra.7z
+- 7za2602x64.exe from x64/7za.exe in https://www.7-zip.org/a/7z2601-extra.7z
 
 ## NanaZip
 
