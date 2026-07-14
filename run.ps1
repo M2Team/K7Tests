@@ -7,7 +7,7 @@ param(
     [string]$Verbosity,
     [Parameter()]
     [string]$Program = "NanaZipC",
-    [Parameter()]
+    [Parameter(Position = 0)]
     [string[]]$Path = @("$PSScriptRoot/tests"),
     [Parameter()]
     [string[]]$Tag,
