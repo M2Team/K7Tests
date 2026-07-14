@@ -189,6 +189,7 @@ Describe "CVE tests" {
             $Output | Write-Verbose -Verbose:$VerbosePreference
 
             $ExitCode | Should -Be 0
+            Get-Content "$TestDrive/extracted/invoice.docx" -Raw | Should -Match "BENIGN"
             Get-Content "$TestDrive/extracted/invoice.docx" -Stream Zone.Identifier -Raw | Should -Match "ZoneId=3"
         }
     }
