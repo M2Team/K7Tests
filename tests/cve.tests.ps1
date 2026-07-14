@@ -169,4 +169,24 @@ Describe "CVE tests" {
 
         $ExitCode | Should -Be 0
     }
+
+    It "is immune to CVE-2026-58052" {
+        $Archive = "$TestDrive/CVE-2026-58052.rar"
+        Copy-Item "$AssetsDir/TestData/CVE/CVE-2026-58052.rar" $Archive
+
+        # Git does not preserve NTFS alternate data streams, so add the archive MOTW here.
+        Set-Content `
+            -LiteralPath $Archive `
+            -Stream Zone.Identifier `
+            -Value "[ZoneTransfer]`r`nZoneId=3`r`n" `
+            -NoNewline
+
+        $Output = & $Program x -snz1 -aoa $Archive "-o$TestDrive/extracted" 2>&1
+        $ExitCode = $LASTEXITCODE
+        $Output | Write-Verbose -Verbose:$VerbosePreference
+
+        $ExitCode | Should -Be 0
+        $ExtractedFile = Get-Item "$TestDrive/extracted/invoice.docx"
+        Get-Content -LiteralPath $ExtractedFile -Stream Zone.Identifier -Raw | Should -Match "ZoneId=3"
+    }
 }

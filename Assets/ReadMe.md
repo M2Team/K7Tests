@@ -122,6 +122,11 @@ Created from the PoC generators for GHSL-2026-116 to GHSL-2026-122 by Jaroslav
 Lobačevski:
 https://securitylab.github.com/advisories/GHSL-2026-115_GHSL-2026-122_7-zip/
 
+## TestData/CVE/CVE-2026-58052.rar
+
+Created from the CVE-2026-58052 PoC available here:
+https://github.com/bikini/exploitarium/tree/main/7zip-rar5-motw-chain-poc
+
 ## TestData/hg19.fa.dk.bin
 
 This is a 32MiB slice starting from offset 2816MiB of the uncompressed file

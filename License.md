@@ -63,6 +63,8 @@ SOFTWARE.
 - CVE-2024-11477-writeup, https://github.com/TheN00bBuilder/cve-2024-11477-writeup
 - CVE-2025-11001, https://github.com/pacbypass/CVE-2025-11001
 - CVE-2025-55188, https://github.com/lunbun/CVE-2025-55188
+- CVE-2026-58052,
+  https://github.com/bikini/exploitarium/tree/main/7zip-rar5-motw-chain-poc
 - EDK II, https://github.com/tianocore/edk2
 - hg19.fa.gz, https://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/initial
 - MSYS2, https://www.msys2.org
