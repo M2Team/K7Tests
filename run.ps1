@@ -41,7 +41,7 @@ if ($ExcludeTag.Length) {
 }
 
 $Container = New-PesterContainer -Path $Path -Data @{
-    Program   = $Program
+    Program   = Resolve-Path $Program
     AssetsDir = "$PSScriptRoot/Assets"
 }
 $Config.Run.Container = $Container
