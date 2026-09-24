@@ -14,6 +14,8 @@ param(
     [Parameter()]
     [string[]]$ExcludeTag,
     [Parameter()]
+    [string[]]$FullName,
+    [Parameter()]
     [ValidateSet("", "None", "Run", "Container", "Block")]
     [string]$SkipRemainingOnFailure
 )
@@ -41,6 +43,9 @@ if ($Tag.Length) {
 }
 if ($ExcludeTag.Length) {
     $Config.Filter.ExcludeTag = $ExcludeTag
+}
+if ($FullName.Length) {
+    $Config.Filter.FullName = $FullName
 }
 if ($SkipRemainingOnFailure) {
     $Config.Run.SkipRemainingOnFailure = $SkipRemainingOnFailure
