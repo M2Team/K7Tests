@@ -32,6 +32,12 @@ by Jaroslav Lobačevski.
 
 For use with special fuzzing-enabled builds of NanaZip.
 
+## Hashes
+
+Set of hashing tools for the validation of hash algorithms provided by NanaZip.
+
+- xxhsum.exe from https://github.com/Cyan4973/xxHash/releases/download/v0.8.4/xxhsum_win64_v0_8_4.zip
+
 ## MSYS2
 
 MSYS2 is a collection of tools and libraries providing you with an easy-to-use
@@ -51,6 +57,14 @@ Here are the commands included in this repository:
 - sha256sum
 - sort
 - xargs
+
+## OpenSSL
+
+Binaries taken from https://github.com/openssl/installer/releases/download/testing_release/OpenSSL-x64-hybridCRT-4.0.1.msi
+for validation of hashing algorithms.
+
+Read https://openssl-corporation.org/blog/windows-installer.html for more
+information.
 
 ## TestData/Artificial
 

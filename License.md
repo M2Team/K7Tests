@@ -73,3 +73,5 @@ SOFTWARE.
 - NuttX, https://github.com/apache/nuttx
 - Rufus, https://github.com/pbatard/rufus
 - Debian Sid Sudo package, https://packages.debian.org/sid/sudo
+- xxHash, https://github.com/Cyan4973/xxHash
+- OpenSSL, https://openssl.org
