@@ -105,6 +105,11 @@ Describe "regression tests" -ForEach @(
     It "creates compatible archives (extended)" -Tag "Slow" -ForEach $Roundtrip {
         $SevenZipAlone = "$AssetsDir/7-Zip/7za2603x64.exe"
 
+        if (!$Alone) {
+            Set-ItResult -Skipped -Because "format is not supported by 7za"
+            return
+        }
+
         Write-Verbose "Extension = $Extension"
         if ($CompressOptions) {
             Write-Verbose "CompressOptions = $CompressOptions"

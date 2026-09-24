@@ -1,28 +1,28 @@
 BeforeDiscovery {
     $Roundtrip = @(
-        @{ Extension = ".zip" }
-        @{ Extension = ".zip"; CompressOptions = @("-mm=Copy") }
-        @{ Extension = ".zip"; CompressOptions = @("-mm=Deflate") }
-        @{ Extension = ".zip"; CompressOptions = @("-mm=Deflate64") }
-        @{ Extension = ".zip"; CompressOptions = @("-mm=BZip2") }
-        @{ Extension = ".zip"; CompressOptions = @("-mm=LZMA") }
-        @{ Extension = ".zip"; CompressOptions = @("-mm=PPMd") }
-        @{ Extension = ".7z" }
-        @{ Extension = ".7z"; CompressOptions = @("-m0=LZMA") }
-        @{ Extension = ".7z"; CompressOptions = @("-m0=LZMA2") }
-        @{ Extension = ".7z"; CompressOptions = @("-m0=PPMd") }
-        @{ Extension = ".7z"; CompressOptions = @("-m0=BZip2") }
-        @{ Extension = ".7z"; CompressOptions = @("-m0=Deflate") }
-        @{ Extension = ".7z"; CompressOptions = @("-m0=Copy") }
-        @{ Extension = ".wim" }
-        @{ Extension = ".tar" }
-        @{ Extension = ".tar"; CompressOptions = @("-mm=gnu") }
-        @{ Extension = ".tar"; CompressOptions = @("-mm=pax") }
-        @{ Extension = ".tar"; CompressOptions = @("-mm=posix") }
-        @{ Extension = ".zip"; CompressOptions = @("-psecret"); ExpandOptions = @("-psecret") }
-        @{ Extension = ".7z"; CompressOptions = @("-psecret"); ExpandOptions = @("-psecret") }
-        @{ Extension = ".cbz"; CompressOptions = @("-tzip", "-psecret"); ExpandOptions = @("-psecret") }
-        @{ Extension = ".cb7"; CompressOptions = @("-t7z", "-psecret"); ExpandOptions = @("-psecret") }
+        @{ Extension = ".zip"; Alone = $true; }
+        @{ Extension = ".zip"; Alone = $true; CompressOptions = @("-mm=Copy") }
+        @{ Extension = ".zip"; Alone = $true; CompressOptions = @("-mm=Deflate") }
+        @{ Extension = ".zip"; Alone = $true; CompressOptions = @("-mm=Deflate64") }
+        @{ Extension = ".zip"; Alone = $true; CompressOptions = @("-mm=BZip2") }
+        @{ Extension = ".zip"; Alone = $true; CompressOptions = @("-mm=LZMA") }
+        @{ Extension = ".zip"; Alone = $true; CompressOptions = @("-mm=PPMd") }
+        @{ Extension = ".7z"; Alone = $true; }
+        @{ Extension = ".7z"; Alone = $true; CompressOptions = @("-m0=LZMA") }
+        @{ Extension = ".7z"; Alone = $true; CompressOptions = @("-m0=LZMA2") }
+        @{ Extension = ".7z"; Alone = $true; CompressOptions = @("-m0=PPMd") }
+        @{ Extension = ".7z"; Alone = $true; CompressOptions = @("-m0=BZip2") }
+        @{ Extension = ".7z"; Alone = $true; CompressOptions = @("-m0=Deflate") }
+        @{ Extension = ".7z"; Alone = $true; CompressOptions = @("-m0=Copy") }
+        @{ Extension = ".wim"; Alone = $false; }
+        @{ Extension = ".tar"; Alone = $true; }
+        @{ Extension = ".tar"; Alone = $true; CompressOptions = @("-mm=gnu") }
+        @{ Extension = ".tar"; Alone = $true; CompressOptions = @("-mm=pax") }
+        @{ Extension = ".tar"; Alone = $true; CompressOptions = @("-mm=posix") }
+        @{ Extension = ".zip"; Alone = $true; CompressOptions = @("-psecret"); ExpandOptions = @("-psecret") }
+        @{ Extension = ".7z"; Alone = $true; CompressOptions = @("-psecret"); ExpandOptions = @("-psecret") }
+        @{ Extension = ".cbz"; Alone = $true; CompressOptions = @("-tzip", "-psecret"); ExpandOptions = @("-psecret") }
+        @{ Extension = ".cb7"; Alone = $true; CompressOptions = @("-t7z", "-psecret"); ExpandOptions = @("-psecret") }
     )
 
     $RoundtripSlow = @(
