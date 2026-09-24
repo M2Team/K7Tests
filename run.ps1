@@ -40,8 +40,14 @@ if ($ExcludeTag.Length) {
     $Config.Filter.ExcludeTag = $ExcludeTag
 }
 
+if (Test-Path -Path $Program -PathType Leaf) {
+    $Program = Resolve-Path $Program
+}
+else {
+    $Program = (Get-Command -Type Application -Name $Program).Path
+}
 $Container = New-PesterContainer -Path $Path -Data @{
-    Program   = Resolve-Path $Program
+    Program   = $Program
     AssetsDir = "$PSScriptRoot/Assets"
 }
 $Config.Run.Container = $Container
