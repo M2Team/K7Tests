@@ -12,7 +12,10 @@ param(
     [Parameter()]
     [string[]]$Tag,
     [Parameter()]
-    [string[]]$ExcludeTag
+    [string[]]$ExcludeTag,
+    [Parameter()]
+    [ValidateSet("", "None", "Run", "Container", "Block")]
+    [string]$SkipRemainingOnFailure
 )
 
 $ErrorActionPreference = "Stop"
@@ -38,6 +41,9 @@ if ($Tag.Length) {
 }
 if ($ExcludeTag.Length) {
     $Config.Filter.ExcludeTag = $ExcludeTag
+}
+if ($SkipRemainingOnFailure) {
+    $Config.Run.SkipRemainingOnFailure = $SkipRemainingOnFailure
 }
 
 if (Test-Path -Path $Program -PathType Leaf) {
