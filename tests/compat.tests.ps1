@@ -13,6 +13,7 @@ Describe "regression tests" -ForEach @(
     @{ InputFile = "$AssetsDir/TestData/Executables" }
 ) {
     . $PSScriptRoot/../fixtures/testdir.ps1
+    . $PSScriptRoot/../fixtures/roundtrip.ps1
 
     Context "with 7za" -Tag "Slow" -ForEach @(
         @{ SevenZipAlone = "$AssetsDir/7-Zip/7za920.exe"; MaxCompat = "920" }
@@ -99,5 +100,33 @@ Describe "regression tests" -ForEach @(
                 -ExpectedDir "$InputFile" `
                 -ActualDir "$TestDrive/extracted"
         }
+    }
+
+    It "creates compatible archives (extended)" -Tag "Slow" -ForEach $Roundtrip {
+        $SevenZipAlone = "$AssetsDir/7-Zip/7za2603x64.exe"
+
+        Write-Verbose "Extension = $Extension"
+        if ($CompressOptions) {
+            Write-Verbose "CompressOptions = $CompressOptions"
+        }
+        if ($ExpandOptions) {
+            Write-Verbose "ExpandOptions = $ExpandOptions"
+        }
+
+        Compress-7zArchive `
+            -Program $Program `
+            -InputFile "$InputFile/*" `
+            -CompressedFile "$TestDrive/compressed/test$Extension" `
+            -CompressOptions $CompressOptions `
+            -Verbose:$VerbosePreference
+        Expand-7zArchive `
+            -Program $SevenZipAlone `
+            -CompressedFile "$TestDrive/compressed/test$Extension" `
+            -ExtractedDir "$TestDrive/extracted" `
+            -ExpandOptions $ExpandOptions `
+            -Verbose:$VerbosePreference
+        Compare-TestDir `
+            -ExpectedDir "$InputFile" `
+            -ActualDir "$TestDrive/extracted"
     }
 }
