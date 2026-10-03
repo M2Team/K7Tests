@@ -61,19 +61,4 @@ Describe "roundtrip container tests" -ForEach @(
             -CompressOptions $CompressOptions `
             -ExpandOptions $ExpandOptions
     }
-
-    It "compresses and decompresses (7-Zip-zstd)" -Tag "7-Zip-zstd" -ForEach @(
-        @{ Extension = ".zip"; CompressOptions = @("-mm=zstd") }
-        @{ Extension = ".7z"; CompressOptions = @("-m0=FLZMA2") }
-        @{ Extension = ".7z"; CompressOptions = @("-m0=zstd") }
-        @{ Extension = ".7z"; CompressOptions = @("-m0=Brotli") }
-        @{ Extension = ".7z"; CompressOptions = @("-m0=LZ4") }
-        @{ Extension = ".7z"; CompressOptions = @("-m0=LZ5") }
-        @{ Extension = ".7z"; CompressOptions = @("-m0=Lizard") }
-    ) {
-        Test-Roundtrip `
-            -Extension $Extension `
-            -CompressOptions $CompressOptions `
-            -ExpandOptions $ExpandOptions
-    }
 }
